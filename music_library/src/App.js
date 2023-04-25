@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import { createResource as fetchData } from './components/helper';
 
 import SearchBar from './components/SearchBar';
 import Gallery from './components/Gallery';
@@ -8,8 +8,11 @@ import { DataContext } from './contexts/DataContext';
 import { SearchContext } from './contexts/SearchContext';
 import AlbumView from './components/AlbumView';
 import ArtistView from './components/ArtistView';
+import Spinner from './components/Spinner';
 
 import './App.css';
+
+
 
 function App() {
 
@@ -17,7 +20,18 @@ function App() {
   let [data, setData] = useState([]);
   let searchInput = useRef('')
 
+  const renderGallery = () => {
+    if(data) {
+        return (
+            <Suspense fallback={<Spinner />}>
+                <Gallery data={data} />
+            </Suspense>
+        )
+    }
+}
+  
   const handleSearch = async searchTerm => {
+
     if (!searchTerm) return
     document.title = `${searchTerm} Music`;
     const response = await fetch(`https://itunes.apple.com/search?term=${searchTerm}`);
@@ -52,8 +66,10 @@ function App() {
 
 
               <DataContext.Provider value={{ data }}>
+                <Suspense fallback={<h1>Loading...</h1>}>
+                  <Gallery />
+                </Suspense>
 
-                <Gallery />
               </DataContext.Provider>
             </>
           } />
@@ -65,10 +81,13 @@ function App() {
       </Router>
 
 
-
-
     </div>
+
+    
   );
+
+
+  
 }
 
 export default App;

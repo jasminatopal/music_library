@@ -21,7 +21,7 @@ export default function GalleryItem({ item }) {
         'border': '1px solid black',
         'margin': '2px'
     }
-    
+
     const detailStyle = {
         'width': '80vw',
         'height': '20vh',
@@ -45,25 +45,25 @@ export default function GalleryItem({ item }) {
     const detailView = () => {
         return (
             <div style={detailStyle}>
-            <h2>{trackName}</h2>
-            <h3>
-                <Link to={`/artist/${artistId}`}>{artistName} </Link>
-            </h3>
-            <h2>
-                <Link to={`/album/${collectionId}`}>{collectionName}</Link>
-            </h2>
-  
-            <h4>{primaryGenreName}</h4>
-            <h4>{releaseDate}</h4>
-        </div>
+                <h2>{trackName}</h2>
+                <h3>
+                    <Link to={`/artist/${artistId}`}>{artistName} </Link>
+                </h3>
+                <h2>
+                    <Link to={`/album/${collectionId}`}>{collectionName}</Link>
+                </h2>
+
+                <h4>{primaryGenreName}</h4>
+                <h4>{releaseDate}</h4>
+            </div>
         )
     }
 
     return (
         <div onClick={() => setView(!view)} style={{ 'display': 'inline-block' }}>
-           {
-            view ? detailView() : simpleView ()
-           }
+            {
+                view ? detailView() : simpleView()
+            }
         </div>
     )
 }
