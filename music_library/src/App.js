@@ -13,7 +13,6 @@ import Spinner from './components/Spinner';
 import './App.css';
 
 
-
 function App() {
 
   let [message, setMessage] = useState('Search for Music!');
@@ -21,15 +20,15 @@ function App() {
   let searchInput = useRef('')
 
   const renderGallery = () => {
-    if(data) {
-        return (
-            <Suspense fallback={<Spinner />}>
-                <Gallery data={data} />
-            </Suspense>
-        )
+    if (data) {
+      return (
+        <Suspense fallback={<Spinner />}>
+          <Gallery data={data} />
+        </Suspense>
+      )
     }
-}
-  
+  }
+
   const handleSearch = async searchTerm => {
 
     if (!searchTerm) return
@@ -42,9 +41,7 @@ function App() {
     } else {
       setData([]);
       setMessage("Nothing found for this artist")
-
     }
-
     console.log(resData)
   }
 
@@ -64,7 +61,6 @@ function App() {
                 <SearchBar />
               </SearchContext.Provider>
 
-
               <DataContext.Provider value={{ data }}>
                 <Suspense fallback={<h1>Loading...</h1>}>
                   <Gallery />
@@ -77,17 +73,11 @@ function App() {
           <Route path="/artist/:id" element={<ArtistView />} />
 
         </Routes>
-
       </Router>
-
-
     </div>
 
-    
   );
 
-
-  
 }
 
 export default App;
